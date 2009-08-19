@@ -16,16 +16,26 @@ Version 0.01
 our $VERSION = '0.01';
 
 use Variable::Magic qw(wizard cast);
+use Attribute::Handlers;
 
-use base qw(Exporter);
-our @EXPORT = qw(&ro);
+my %uninitialized_vars;
 
 my $wizard = wizard
-  set => sub { die "readonly!" };
+  set => sub {
+    if (exists $uninitialized_vars{$_[0]}) {
+      delete $uninitialized_vars{$_[0]};
+    } else {
+      die "readonly!"
+    }
+  };
 
-sub ro(\[$@%])
+sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
-  cast ${$_[0]}, $wizard;
+  my ($package, $symbol, $referent, $attr, $data) = @_;
+
+  $uninitialized_vars{$referent} = 1;
+
+  cast $$referent, $wizard;
 }
 
 
@@ -33,16 +43,14 @@ sub ro(\[$@%])
 
     use ro;
 
-    my $foo : Readonly = 42;
+    my $foo : ReadOnly = 42;
     ...
     $foo = 1;   # dies
 
 =head1 EXPORT
 
-None.
-
-Instead registers an attribute handler via (L<Attribute::Handlers>) for the
-C<Readonly> attribute.
+None. But installs a sub (L</ReadOnly> into the L<UNIVERSAL> namespace, that is
+a far more grave sin..
 
 =head1 FUNCTIONS
 

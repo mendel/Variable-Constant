@@ -8,8 +8,4 @@ our @EXPORT = qw($foo);
 
 use ro;
 
-our $foo;
-
-BEGIN { $foo = "some text"; }
-
-ro $foo;
+our $foo : ReadOnly = "some text";
