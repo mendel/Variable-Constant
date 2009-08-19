@@ -31,7 +31,6 @@ my $wizard = wizard
   };
 
 #TODO rename to Const
-#TODO is it possible to avoid polluting UNIVERSAL - instead just adding the sub to the caller pkg in compile time (ie. before Attribute::Handlers calls it)?
 sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
