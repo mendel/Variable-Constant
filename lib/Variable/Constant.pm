@@ -31,7 +31,7 @@ my $wizard = wizard
   };
 
 #TODO rename to Constant
-sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
+sub UNIVERSAL::Constant : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
 
@@ -45,13 +45,13 @@ sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 
     use Variable::Constant;
 
-    my $foo : ReadOnly = 42;
+    my $foo : Constant = 42;
     ...
     $foo = 1;   # dies
 
 =head1 EXPORT
 
-None, but installs a sub (L</ReadOnly> into the L<UNIVERSAL> namespace, and
+None, but installs a sub (L</Constant> into the L<UNIVERSAL> namespace, and
 that is a far more grave sin..
 
 =head1 FUNCTIONS

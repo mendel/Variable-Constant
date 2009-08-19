@@ -8,6 +8,6 @@ our @EXPORT = qw($foo);
 
 use Variable::Constant;
 
-our $foo : ReadOnly = "some text";
+our $foo : Constant = "some text";
 
 1;

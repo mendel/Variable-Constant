@@ -24,7 +24,7 @@ BEGIN { use_ok('Variable::Constant') };
   }
 
   my $foo_rw = Foo->new();
-  my $foo_ro : ReadOnly = $foo_rw;
+  my $foo_ro : Constant = $foo_rw;
 
   is(
     $foo_ro,

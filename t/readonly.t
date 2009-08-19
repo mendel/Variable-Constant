@@ -11,7 +11,7 @@ use Test::Most tests => 9;
 BEGIN { use_ok('Variable::Constant') };
 
 {
-  my $foo : ReadOnly = "some text";
+  my $foo : Constant = "some text";
 
   is($foo, "some text", "the readonly scalar lexical variable has the right value");
 
@@ -27,7 +27,7 @@ BEGIN { use_ok('Variable::Constant') };
 }
 
 {
-  our $foo : ReadOnly = "some text";
+  our $foo : Constant = "some text";
 
   is($foo, "some text", "the readonly scalar package variable has the right value");
 
@@ -43,7 +43,7 @@ BEGIN { use_ok('Variable::Constant') };
 }
 
 {
-  my $foo : ReadOnly;
+  my $foo : Constant;
 
   lives_ok {
     $foo = 1;
