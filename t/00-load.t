@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-	use_ok( 'ro' );
+	use_ok( 'Variable::Constant' );
 }
 
-diag( "Testing ro $ro::VERSION, Perl $], $^X" );
+diag( "Testing Variable::Constant $Variable::Constant::VERSION, Perl $], $^X" );

@@ -1,11 +1,11 @@
-package ro;   #TODO rename to Const
+package Variable::Constant;
 
 use warnings;
 use strict;
 
 =head1 NAME
 
-ro - Readonly variables
+Variable::Constant - Constant (read-only) variables
 
 =head1 VERSION
 
@@ -30,7 +30,7 @@ my $wizard = wizard
     }
   };
 
-#TODO rename to Const
+#TODO rename to Constant
 sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
@@ -43,7 +43,7 @@ sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 
 =head1 SYNOPSIS
 
-    use ro;
+    use Variable::Constant;
 
     my $foo : ReadOnly = 42;
     ...
@@ -51,8 +51,8 @@ sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 
 =head1 EXPORT
 
-None. But installs a sub (L</ReadOnly> into the L<UNIVERSAL> namespace, that is
-a far more grave sin..
+None, but installs a sub (L</ReadOnly> into the L<UNIVERSAL> namespace, and
+that is a far more grave sin..
 
 =head1 FUNCTIONS
 
@@ -74,8 +74,8 @@ Norbert Buchmüller, C<< <norbi at nix.hu> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ro at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=ro>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-variable-constant at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Variable-Constant>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -85,7 +85,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc ro
+    perldoc Variable::Constant
 
 
 You can also look for information at:
@@ -94,19 +94,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=ro>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Variable-Constant>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/ro>
+L<http://annocpan.org/dist/Variable-Constant>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/ro>
+L<http://cpanratings.perl.org/d/Variable-Constant>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/ro/>
+L<http://search.cpan.org/dist/Variable-Constant/>
 
 =back
 
@@ -124,4 +124,4 @@ under the same terms as Perl itself.
 
 =cut
 
-1; # End of ro
+1; # End of Variable::Constant

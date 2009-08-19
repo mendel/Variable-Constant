@@ -8,7 +8,7 @@ use lib "$FindBin::Bin/lib";
 
 use Test::Most tests => 5;
 
-BEGIN { use_ok('ro') };
+BEGIN { use_ok('Variable::Constant') };
 
 {
   {

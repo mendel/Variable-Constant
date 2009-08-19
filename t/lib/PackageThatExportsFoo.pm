@@ -6,7 +6,7 @@ use warnings;
 use base qw(Exporter);
 our @EXPORT = qw($foo);
 
-use ro;
+use Variable::Constant;
 
 our $foo : ReadOnly = "some text";
 
