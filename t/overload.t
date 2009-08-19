@@ -1,5 +1,10 @@
 #!/usr/bin/perl
 
+# This test is only necessary because of an implementation detail: we have to
+# store the references to the constant variables so that we know which of them
+# are not initialized yet, and a reference with stringification overload can
+# cause troubles there.
+
 use strict;
 use warnings;
 
