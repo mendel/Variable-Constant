@@ -14,10 +14,10 @@ is($foo, "some text", "the exported readonly variable has the right value");
 
 throws_ok {
   $foo = 1;
-} qr/^readonly!/,
+} qr/^Attempt to assign to a constant variable/,
   "modifying an exported readonly variable dies";
 
 throws_ok {
   undef $foo;
-} qr/^readonly!/,
+} qr/^Attempt to assign to a constant variable/,
   "undefining an exported readonly variable dies";

@@ -21,12 +21,12 @@ use Scalar::Util qw(refaddr);
 
 my $constant_wizard = wizard
   set => sub {
-    die "readonly!"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
+    die "Attempt to assign to a constant variable"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
   };
 
 sub uninitialized_constant_access
 {
-  die "Attempt to access uninitialized constant variable";
+  die "Attempt to access an uninitialized constant variable";
 }
 
 my $uninitialized_constant_wizard;

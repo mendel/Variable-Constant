@@ -39,12 +39,12 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     $foo_ro = 1;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "modifying the readonly scalar lexical variable dies";
 
   throws_ok {
     undef $foo_ro;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "undefining the readonly scalar lexical variable dies";
 
   lives_ok {

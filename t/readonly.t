@@ -17,12 +17,12 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     $foo = 1;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "modifying a readonly scalar lexical variable dies";
 
   throws_ok {
     undef $foo;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "undefining a readonly scalar lexical variable dies";
 }
 
@@ -33,12 +33,12 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     $foo = 1;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "modifying a readonly scalar package variable dies";
 
   throws_ok {
     undef $foo;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "undefining a readonly scalar package variable dies";
 }
 
@@ -51,7 +51,7 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     $foo = 2;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "an uninitialized readonly scalar variable can be modified only once";
 }
 

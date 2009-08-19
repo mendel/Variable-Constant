@@ -15,7 +15,7 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     my $x = $foo;
-  } qr/^Attempt to access uninitialized constant variable/,
+  } qr/^Attempt to access an uninitialized constant variable/,
     "attempt to access the uninitialized constant variable dies";
 
   lives_ok {
@@ -26,11 +26,11 @@ BEGIN { use_ok('Variable::Constant') };
 
   throws_ok {
     $foo = 1;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "modifying a readonly scalar lexical variable dies";
 
   throws_ok {
     undef $foo;
-  } qr/^readonly!/,
+  } qr/^Attempt to assign to a constant variable/,
     "undefining a readonly scalar lexical variable dies";
 }
