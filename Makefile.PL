@@ -1,5 +1,7 @@
 use strict;
 use warnings;
+
+#TODO rewrite to use Module::Install
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
@@ -13,7 +15,11 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
+        'Variable::Magic' => 0.35,
+        'Attribute::Handlers' => 0.79,
+        'Scalar::Util' => 1.19,
     },
+    #TODO test deps
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'ro-*' },
 );
