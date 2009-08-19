@@ -21,6 +21,7 @@ use Scalar::Util qw(refaddr);
 
 my %uninitialized_vars;
 
+#TODO error if an uninitialized (ie. first assignment not happened yet) constant variable is accessed (performance-sensitive, we cannot make a hash lookup on every access, but we have to change the magic after the first assignment)
 my $wizard = wizard
   set => sub {
     if (exists $uninitialized_vars{refaddr($_[0])}) {
