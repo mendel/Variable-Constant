@@ -17,13 +17,14 @@ our $VERSION = '0.01';
 
 use Variable::Magic qw(wizard cast);
 use Attribute::Handlers;
+use Scalar::Util qw(refaddr);
 
 my %uninitialized_vars;
 
 my $wizard = wizard
   set => sub {
-    if (exists $uninitialized_vars{$_[0]}) {
-      delete $uninitialized_vars{$_[0]};
+    if (exists $uninitialized_vars{refaddr($_[0])}) {
+      delete $uninitialized_vars{refaddr($_[0])};
     } else {
       die "readonly!"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
     }
@@ -35,7 +36,7 @@ sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
 
-  $uninitialized_vars{$referent} = 1;
+  $uninitialized_vars{refaddr($referent)} = 1;
 
   cast $$referent, $wizard;
 }
