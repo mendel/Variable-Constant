@@ -61,7 +61,7 @@ a far more grave sin..
 
 =cut
 
-#TODO create performance tests
+#TODO create performance tests (see L<Readonly> dist)
 #TODO document performance
 #TODO document what Perl version Variable::Magic requires to work properly
 #TODO document comparison to L<Readonly>
