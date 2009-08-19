@@ -1,4 +1,4 @@
-package ro;
+package ro;   #TODO rename to ReadOnly (but that's confusing b/c of the Readonly module)
 
 use warnings;
 use strict;
@@ -25,10 +25,11 @@ my $wizard = wizard
     if (exists $uninitialized_vars{$_[0]}) {
       delete $uninitialized_vars{$_[0]};
     } else {
-      die "readonly!"
+      die "readonly!"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
     }
   };
 
+#TODO is it possible to avoid polluting UNIVERSAL - instead just adding the sub to the caller pkg in compile time (ie. before Attribute::Handlers calls it)?
 sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
