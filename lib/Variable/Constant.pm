@@ -15,30 +15,35 @@ Version 0.01
 
 our $VERSION = '0.01';
 
-use Variable::Magic qw(wizard cast);
+use Variable::Magic qw(wizard cast dispell);
 use Attribute::Handlers;
 use Scalar::Util qw(refaddr);
 
-my %uninitialized_vars;
-
-#TODO error if an uninitialized (ie. first assignment not happened yet) constant variable is accessed (performance-sensitive, we cannot make a hash lookup on every access, but we have to change the magic after the first assignment)
-my $wizard = wizard
+my $constant_wizard = wizard
   set => sub {
-    if (exists $uninitialized_vars{refaddr($_[0])}) {
-      delete $uninitialized_vars{refaddr($_[0])};
-    } else {
-      die "readonly!"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
-    }
+    die "readonly!"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
   };
 
-#TODO rename to Constant
+sub uninitialized_constant_access
+{
+  die "Attempt to access uninitialized constant variable";
+}
+
+my $uninitialized_constant_wizard;
+$uninitialized_constant_wizard = wizard
+  set => sub {
+    dispell ${$_[0]}, $uninitialized_constant_wizard;
+    cast ${$_[0]}, $constant_wizard;
+  },
+  map {
+    ($_ => \&uninitialized_constant_access)
+  } qw(get len copy dup fetch exists delete);
+
 sub UNIVERSAL::Constant : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
 
-  $uninitialized_vars{refaddr($referent)} = 1;
-
-  cast $$referent, $wizard;
+  cast $$referent, $uninitialized_constant_wizard;
 }
 
 
