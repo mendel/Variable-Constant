@@ -1,4 +1,4 @@
-package ro;   #TODO rename to ReadOnly (but that's confusing b/c of the Readonly module)
+package ro;   #TODO rename to Const
 
 use warnings;
 use strict;
@@ -29,6 +29,7 @@ my $wizard = wizard
     }
   };
 
+#TODO rename to Const
 #TODO is it possible to avoid polluting UNIVERSAL - instead just adding the sub to the caller pkg in compile time (ie. before Attribute::Handlers calls it)?
 sub UNIVERSAL::ReadOnly : ATTR(SCALAR,BEGIN)   #TODO array, hash
 {
@@ -59,6 +60,13 @@ a far more grave sin..
 
 =cut
 
+#TODO create performance tests
+#TODO document performance
+#TODO document what Perl version Variable::Magic requires to work properly
+#TODO document comparison to L<Readonly>
+# * more straightforward syntax
+# * there are uninitialized constants - that are declared, but only set on the first assignment, and are readonly only from that point
+#TODO document comparison to L<constant> - based on doc from L<Readonly>
 
 =head1 AUTHOR
 
