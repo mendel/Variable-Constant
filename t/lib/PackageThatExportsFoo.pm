@@ -9,3 +9,5 @@ our @EXPORT = qw($foo);
 use ro;
 
 our $foo : ReadOnly = "some text";
+
+1;
