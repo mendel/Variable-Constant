@@ -6,7 +6,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use Test::Most tests => 9;
+use Test::Most tests => 10;
 
 BEGIN { use_ok('Variable::Constant') };
 
@@ -53,6 +53,15 @@ BEGIN { use_ok('Variable::Constant') };
     $foo = 2;
   } qr/^Attempt to assign to a constant variable/,
     "an uninitialized readonly scalar variable can be modified only once";
+}
+
+{
+  my $foo : Constant = "some text";
+  my $bar = $foo;
+
+  lives_ok {
+    $bar = 1;
+  } "a copy of a constant readonly scalar variable can be modified";
 }
 
 #TODO array, hash
