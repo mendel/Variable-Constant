@@ -6,14 +6,25 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use Test::Most tests => 10;
+use Test::Most tests => 11;
 
 BEGIN { use_ok('Variable::Constant') };
 
 {
+  lives_ok {
+    my $foo : Constant = "some text";
+  } "assignment to a readonly scalar lexical variable in the declaration " .
+    "does not die";
+}
+
+{
   my $foo : Constant = "some text";
 
-  is($foo, "some text", "the readonly scalar lexical variable has the right value");
+  is(
+    $foo,
+    "some text",
+    "the readonly scalar lexical variable has the right value"
+  );
 
   throws_ok {
     $foo = 1;
@@ -29,7 +40,11 @@ BEGIN { use_ok('Variable::Constant') };
 {
   our $foo : Constant = "some text";
 
-  is($foo, "some text", "the readonly scalar package variable has the right value");
+  is(
+    $foo,
+    "some text",
+    "the readonly scalar package variable has the right value"
+  );
 
   throws_ok {
     $foo = 1;
