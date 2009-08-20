@@ -18,6 +18,7 @@ WriteMakefile(
         'Variable::Magic' => 0.35,
         'Attribute::Handlers' => 0.79,
         'Scalar::Util' => 1.19,
+        'Carp' => 1.08,
     },
     #TODO test deps
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

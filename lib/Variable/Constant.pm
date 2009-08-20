@@ -19,14 +19,43 @@ use Variable::Magic qw(wizard cast dispell);
 use Attribute::Handlers;
 use Scalar::Util qw(refaddr);
 
+=begin private
+
+=head2 croak
+
+Loads L</Carp> and calls L<Carp/croak>. This way L<Carp> is only loaded if this
+module is croaking.
+
+=end private
+
+=cut
+
+sub croak
+{
+  use Carp ();
+
+  goto &Carp::croak;
+}
+
 my $constant_wizard = wizard
   set => sub {
-    die "Attempt to assign to a constant variable"   #TODO better error msg (faking the exception is thrown from the place where you tried to assign to the readonly variable)
+    croak "Attempt to assign to a constant variable";
   };
+
+=begin private
+
+=head2 uninitialized_constant_access
+
+Croaks with the proper message. Called on access to an uninitialized constant
+variable.
+
+=end private
+
+=cut
 
 sub uninitialized_constant_access
 {
-  die "Attempt to access an uninitialized constant variable";
+  croak "Attempt to access an uninitialized constant variable";
 }
 
 my $uninitialized_constant_wizard;
@@ -59,10 +88,6 @@ sub UNIVERSAL::Constant : ATTR(SCALAR,BEGIN)   #TODO array, hash
 
 None, but installs a sub (L</Constant> into the L<UNIVERSAL> namespace, and
 that is a far more grave sin..
-
-=head1 FUNCTIONS
-
-=head2 function1
 
 =cut
 
