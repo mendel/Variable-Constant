@@ -42,22 +42,6 @@ my $constant_wizard = wizard
     croak "Attempt to assign to a constant variable";
   };
 
-=begin private
-
-=head2 uninitialized_constant_access
-
-Croaks with the proper message. Called on access to an uninitialized constant
-variable.
-
-=end private
-
-=cut
-
-sub uninitialized_constant_access
-{
-  croak "Attempt to access an uninitialized constant variable";
-}
-
 my $uninitialized_constant_wizard;
 $uninitialized_constant_wizard = wizard
   set => sub {
@@ -65,7 +49,7 @@ $uninitialized_constant_wizard = wizard
     cast ${$_[0]}, $constant_wizard;
   },
   map {
-    ($_ => \&uninitialized_constant_access)
+    $_ => sub { croak "Attempt to access an uninitialized constant variable"; }
   } qw(get len copy dup fetch exists delete);
 
 sub UNIVERSAL::Constant : ATTR(SCALAR,BEGIN)   #TODO array, hash
