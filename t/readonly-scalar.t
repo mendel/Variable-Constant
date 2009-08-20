@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 #TODO tests for arrays
-#TODO split the declaration and initial assignment (so that the initial assignment is in lives_ok())
 
 use strict;
 use warnings;
