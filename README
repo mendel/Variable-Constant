@@ -1,4 +1,4 @@
-ro
+Variable-Constant
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc ro
+    perldoc Variable::Constant
 
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=ro
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Variable-Constant
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/ro
+        http://annocpan.org/dist/Variable-Constant
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/ro
+        http://cpanratings.perl.org/d/Variable-Constant
 
     Search CPAN
-        http://search.cpan.org/dist/ro/
+        http://search.cpan.org/dist/Variable-Constant/
 
 
 COPYRIGHT AND LICENCE
