@@ -17,7 +17,6 @@ our $VERSION = '0.01';
 
 use Variable::Magic qw(wizard cast dispell);
 use Attribute::Handlers;
-use Scalar::Util qw(refaddr);
 
 =begin private
 
@@ -38,25 +37,46 @@ sub croak
 }
 
 my $constant_wizard = wizard
-  set => sub {
-    croak "Attempt to assign to a constant variable";
-  };
+  map {
+    #TODO reword it to 'Attempt to modify to a constant variable'
+    $_ => sub { croak "Attempt to assign to a constant variable"; }
+  } qw(set clear copy store delete);
 
 my $uninitialized_constant_wizard;
 $uninitialized_constant_wizard = wizard
-  set => sub {
-    dispell ${$_[0]}, $uninitialized_constant_wizard;
-    cast ${$_[0]}, $constant_wizard;
-  },
-  map {
+  map({
+    $_ => sub {
+      my %dispatch = (
+        SCALAR => sub {
+          dispell ${$_[0]}, $uninitialized_constant_wizard;
+          cast ${$_[0]}, $constant_wizard;
+        },
+        ARRAY => sub {
+          dispell @{$_[0]}, $uninitialized_constant_wizard;
+          cast @{$_[0]}, $constant_wizard;
+        },
+        HASH => sub {
+          #dispell %{$_[0]}, $uninitialized_constant_wizard;
+          cast %{$_[0]}, $constant_wizard;
+        },
+      );
+      $dispatch{ref($_[0])}->(@_);
+    },
+  } qw(set store)),
+  map({
     $_ => sub { croak "Attempt to access an uninitialized constant variable"; }
-  } qw(get len copy dup fetch exists delete);
+  } qw(get len copy dup fetch exists delete));
 
-sub UNIVERSAL::Constant : ATTR(SCALAR,BEGIN)   #TODO array, hash
+sub UNIVERSAL::Constant : ATTR(VAR,BEGIN)   #TODO array, hash
 {
   my ($package, $symbol, $referent, $attr, $data) = @_;
 
-  cast $$referent, $uninitialized_constant_wizard;
+  my %dispatch = (
+    SCALAR => sub { cast ${$referent}, $uninitialized_constant_wizard; },
+    ARRAY => sub { cast @{$referent}, $uninitialized_constant_wizard; },
+    HASH => sub { cast %{$referent}, $uninitialized_constant_wizard; },
+  );
+  $dispatch{ref($referent)}->();
 }
 
 
