@@ -6,7 +6,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use Test::Most tests => 11;
+use Test::Most tests => 12;
 
 BEGIN { use_ok('Variable::Constant') };
 
@@ -77,6 +77,14 @@ BEGIN { use_ok('Variable::Constant') };
   lives_ok {
     $bar = 1;
   } "a copy of a constant readonly scalar variable can be modified";
+}
+
+{
+  lives_ok {
+    foreach (1..10) {
+      my $foo : Constant = 42;
+    }
+  } "putting declaration + assignment of a constant readonly scalar variable in a loop works";
 }
 
 #TODO array, hash
