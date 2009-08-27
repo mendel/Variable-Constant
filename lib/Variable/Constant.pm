@@ -75,6 +75,13 @@ that is a far more grave sin..
 
 =cut
 
+#TODO for scalars (and possibly for arrays?) use SvREADONLY (either Internals::SvREADONLY or XS) (after the mode switch, until that use Variable::Magic)
+#TODO for hashes use Hash::Util::lock_hash() (knows more about properly locking hashes than plain Internals::SvREADONLY knows) (after the mode switch, until that use Variable::Magic)
+#TODO for hashes (and probably arrays) there are caveats (you cannnot clear, or completely reassign a hash, you cannot change or delete values, but you can add new keys until it switches to readonly mode - you can force it via reading the hash, eg. 'keys %hash')
+#TODO tests for hash and array slices, array push, pop, shift, unshift, splice, ...
+#TODO recursive constant data structures
+#TODO tests for readonly-ness after it thrown an exception (either b/c of trying to reassign it or b/c trying to access an uninitialized constant)
+#TODO tests for hash and array constant mode switch (ie. from assignable to locked - eg. after a reassignment attempt it should switch to locked state)
 #TODO create performance tests (see L<Readonly> dist)
 #TODO document performance
 #TODO document what Perl version Variable::Magic requires to work properly
