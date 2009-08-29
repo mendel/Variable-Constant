@@ -6,9 +6,9 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use Test::Most tests => 12;
+use Test::Most tests => 11;
 
-BEGIN { use_ok('Variable::Constant') };
+use Variable::Constant;
 
 {
   lives_ok {
