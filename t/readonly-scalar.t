@@ -6,7 +6,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib", "$FindBin::Bin/t/lib";
 
-use Test::Most tests => 15;
+use Test::Most tests => 19;
 use TestMessages;
 
 use Variable::Constant;
@@ -40,6 +40,34 @@ use Variable::Constant;
 }
 
 {
+  my $foo : Constant;
+
+  lives_ok {
+    $foo = 1;
+  } "an uninitialized constant scalar lexical variable can be modified once";
+
+  throws_ok {
+    $foo = 1;
+  } MODIFICATION_OF_READONLY_VALUE_ATTEMPTED,
+    "an uninitialized constant scalar lexical variable cannot be modified after " .
+    "the first assignment - not even setting to the same value";
+}
+
+{
+  our $bar2 : Constant;
+
+  lives_ok {
+    $bar2 = 1;
+  } "an uninitialized constant scalar package variable can be modified once";
+
+  throws_ok {
+    $bar2 = 1;
+  } MODIFICATION_OF_READONLY_VALUE_ATTEMPTED,
+    "an uninitialized constant scalar package variable cannot be modified after " .
+    "the first assignment - not even setting to the same value";
+}
+
+{
   lives_ok {
     my $foo : Constant = "some text";
   } "assignment to a constant scalar package variable in the declaration " .
@@ -48,7 +76,7 @@ use Variable::Constant;
 
 {
   lives_ok {
-    our $bar2 : Constant = "some text";
+    our $bar3 : Constant = "some text";
   } "assignment to a constant scalar package variable in the declaration " .
     "does not die";
 }
@@ -64,10 +92,10 @@ use Variable::Constant;
 }
 
 {
-  our $bar3 : Constant = "some text";
+  our $bar4 : Constant = "some text";
 
   is(
-    $bar3,
+    $bar4,
     "some text",
     "the constant scalar package variable has the right value"
   );
@@ -83,10 +111,10 @@ use Variable::Constant;
 }
 
 {
-  our $bar4 : Constant = "some text";
+  our $bar5 : Constant = "some text";
 
   throws_ok {
-    $bar4 = 1;
+    $bar5 = 1;
   } MODIFICATION_OF_READONLY_VALUE_ATTEMPTED,
     "assigning to a constant scalar package variable dies";
 }
@@ -101,10 +129,10 @@ use Variable::Constant;
 }
 
 {
-  our $bar5 : Constant = "some text";
+  our $bar6 : Constant = "some text";
 
   throws_ok {
-    undef $bar5;
+    undef $bar6;
   } MODIFICATION_OF_READONLY_VALUE_ATTEMPTED,
     "undefining a constant scalar package variable dies";
 }
