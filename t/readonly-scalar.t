@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-#TODO tests for arrays
-
 use strict;
 use warnings;
 
