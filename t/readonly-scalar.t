@@ -137,6 +137,7 @@ use Variable::Constant;
     "undefining a constant scalar package variable dies";
 }
 
+
 {
   my $foo : Constant = "some text";
   my $bar = $foo;
@@ -151,7 +152,8 @@ use Variable::Constant;
     foreach (1..10) {
       my $foo : Constant = 42;
     }
-  } "putting declaration + assignment of a constant constant scalar variable in a loop works";
+  } "putting declaration + assignment of a constant constant scalar lexical " .
+    "variable in a loop works";
 }
 
 {
@@ -161,6 +163,5 @@ use Variable::Constant;
   throws_ok {
     $$foo_ref = 1;
   } MODIFICATION_OF_READONLY_VALUE_ATTEMPTED,
-    "assigning to a constant scalar package variable through a reference dies";
+    "assigning to a constant scalar variable through a reference dies";
 }
-
