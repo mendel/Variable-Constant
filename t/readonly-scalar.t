@@ -86,5 +86,3 @@ use Variable::Constant;
     }
   } "putting declaration + assignment of a constant readonly scalar variable in a loop works";
 }
-
-#TODO array, hash
