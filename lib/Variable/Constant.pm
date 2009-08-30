@@ -102,7 +102,7 @@ that is a far more grave sin..
 #TODO hash read tests: my $x = scalar %h; my @a = %h; my @a = keys %h; my @a = values %h; my $x = $h{existing_key}; my $x = $h{nonexistent_key}; my $x = delete $h{existing_key}; my $x = delete $h{nonexistent_key}; my @a = @h{qw(existing_key)}; my @a = @h{qw(nonexistent_key)}; my @a = delete @h{qw(existing_key)}; my @a = delete @h{qw(nonexistent_key)}; my $hr = \%h; my @a = %$hr; my $x = $hr->{existing_key};
 #TODO array write tests: undef @a; @a = (); @a = (1); $a[0] = 1; $a[0] = the_same_value; undef $a[0]; delete $a[0]; $a[9] = 1; undef $a[9]; delete $a[9]; @a[0,1] = (); @a[0,1] = (1, 2); delete @a[0,1]; @a[9,10] = (); @a[9,10] = (1, 2); delete @a[9,10]; my $ar = \@a; @$ar = (); $ar->[0] = 1; splice @a, 0, 1; splice @a, 0, 1, (1); push @a, 1; unshift @a, 1;
 #TODO array read tests: my @b = @a; my $x = scalar @a; my $x = $a[0]; my $x = $a[9]; my $x = delete $a[0]; my $x = delete $a[9]; my @b = @a[0,1]; my @b = @a[9,10]; my @b = delete @a[0,1]; my @b = delete @a[9,10]; my $ar = \@a; my @b = @$ar; my $x = $ar->[0]; my $x = $ar->[9]; my $x = splice @a, 0, 1; my @b = splice @a, 0, 2; my $x = pop @a; my $x = shift @a; 
-#TODO recursive constant data structures
+#TODO tests and implementation for recursive constant data structures
 #TODO tests for readonly-ness after it thrown an exception (either b/c of trying to reassign it or b/c trying to access an uninitialized constant)
 #TODO tests for hash and array constant mode switch (ie. from assignable to locked - eg. after a reassignment attempt it should switch to locked state)
 #TODO create performance tests (see L<Readonly> dist)
