@@ -1,26 +1,15 @@
-use strict;
-use warnings;
+use inc::Module::Install 0.91;
 
-#TODO rewrite to use Module::Install
-use ExtUtils::MakeMaker;
+name     'Variable-Constant';
+all_from 'lib/Variable/Constant.pm';
 
-WriteMakefile(
-    NAME                => 'ro',
-    AUTHOR              => 'Norbert Buchmüller <norbi@nix.hu>',
-    VERSION_FROM        => 'lib/ro.pm',
-    ABSTRACT_FROM       => 'lib/ro.pm',
-    ($ExtUtils::MakeMaker::VERSION >= 6.3002
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-        'Variable::Magic' => 0.35,
-        'Attribute::Handlers' => 0.79,
-        'Scalar::Util' => 1.19,
-        'Carp' => 1.08,
-    },
-    #TODO test deps
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'ro-*' },
-);
+requires 'Variable::Magic' => 0.35,
+requires 'Attribute::Handlers' => 0.79,
+requires 'Scalar::Util' => 1.19,
+requires 'Carp' => 1.08,
+
+test_requires 'Test::Most' => 0.21;
+
+auto_install;
+
+WriteAll;
